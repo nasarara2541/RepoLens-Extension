@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>RepoLens</title>
+    <link rel="stylesheet" href="sidepanel.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" id="brand-link" href="#" aria-label="Open RepoLens web app">
+        <img src="icons/icon-48.png" width="32" height="32" alt="">
+        <span>RepoLens</span>
+      </a>
+      <span class="read-only-pill"><i></i> read-only</span>
+    </header>
+
+    <main>
+      <section class="welcome-card" id="welcome-view" hidden>
+        <div class="welcome-illustration" aria-hidden="true">
+          <span class="spark spark--one">✦</span>
+          <span class="repo-window"><i></i><i></i><i></i><b>↗</b></span>
+          <span class="spark spark--two">✦</span>
+        </div>
+        <p class="eyebrow">GitHub companion</p>
+        <h1>Open a repository<br>to find useful work.</h1>
+        <p class="muted">Visit any GitHub repository, then open RepoLens again. We’ll detect it automatically.</p>
+        <button class="button button--primary" id="open-github" type="button">Browse GitHub</button>
+      </section>
+
+      <section id="repository-view" hidden>
+        <div class="repository-bar">
+          <div class="repo-icon" aria-hidden="true">⌘</div>
+          <div>
+            <span>Current repository</span>
+            <strong id="repository-name"></strong>
+          </div>
+          <button class="icon-button" id="refresh-repository" type="button" title="Use the current tab" aria-label="Use the current tab">↻</button>
+        </div>
+
+        <details class="preferences" id="preferences">
+          <summary>
+            <span>Make it fit me</span>
+            <small id="preference-summary">New contributor · A couple of hours</small>
+          </summary>
+          <div class="preferences-grid">
+            <label>
+              <span>Experience</span>
+              <select id="experience">
+                <option value="new">New contributor</option>
+                <option value="comfortable">Comfortable with code</option>
+                <option value="advanced">Experienced maintainer</option>
+              </select>
+            </label>
+            <label>
+              <span>Time available</span>
+              <select id="time">
+                <option value="half-hour">About 30 minutes</option>
+                <option value="two-hours">A couple of hours</option>
+                <option value="weekend">A weekend</option>
+              </select>
+            </label>
+            <label>
+              <span>I prefer</span>
+              <select id="focus">
+                <option value="any">Best overall match</option>
+                <option value="docs">Docs and community</option>
+                <option value="tests">Tests and CI</option>
+                <option value="cleanup">Cleanup and dead code</option>
+                <option value="frontend">Frontend and accessibility</option>
+              </select>
+            </label>
+          </div>
+        </details>
+
+        <button class="button button--primary analyze-button" id="analyze" type="button">
+          <span>Find work for me</span><b aria-hidden="true">→</b>
+        </button>
+
+        <section class="loading-card" id="loading-view" aria-live="polite" hidden>
+          <div class="loader" aria-hidden="true"><span>RL</span><i></i><i></i></div>
+          <h2>Looking for a good fit…</h2>
+          <p id="loading-copy">Checking repository evidence without running its code.</p>
+          <div class="loading-steps" aria-hidden="true"><i></i><i></i><i></i></div>
+        </section>
+
+        <section class="error-card" id="error-view" role="alert" hidden>
+          <span class="error-face" aria-hidden="true">:·(</span>
+          <h2>We couldn’t finish that scan.</h2>
+          <p id="error-message"></p>
+          <button class="button button--secondary" id="retry" type="button">Try again</button>
+        </section>
+
+        <section id="results-view" hidden>
+          <div class="results-heading">
+            <div>
+              <p class="eyebrow">Your best matches</p>
+              <h1 id="results-title"></h1>
+              <p id="results-summary"></p>
+            </div>
+            <div class="coverage-ring" id="coverage-ring" aria-label="Analysis coverage">
+              <strong id="coverage-value"></strong><span>checked</span>
+            </div>
+          </div>
+          <div class="match-list" id="match-list"></div>
+          <button class="button button--secondary full-report-button" id="open-full-report" type="button">
+            Open the full evidence report <span aria-hidden="true">↗</span>
+          </button>
+          <p class="results-note">Suggestions are evidence-backed starting points. Always confirm scope with the maintainer.</p>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <span>Repository code is never executed.</span>
+      <button id="privacy-link" type="button">How it works</button>
+    </footer>
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script type="module" src="sidepanel.js"></script>
+  </body>
+</html>
